@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C41B7DD0256C0B9800140EF2 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41B7DCF256C0B9800140EF2 /* Utilities.swift */; };
 		C42292DD2566DC3000EAA120 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42292DC2566DC3000EAA120 /* AppDelegate.swift */; };
 		C42292DF2566DC3000EAA120 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42292DE2566DC3000EAA120 /* SceneDelegate.swift */; };
 		C42292E62566DC3100EAA120 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42292E52566DC3100EAA120 /* Assets.xcassets */; };
@@ -16,9 +17,13 @@
 		C42293052566E1EC00EAA120 /* ExploreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42293042566E1EC00EAA120 /* ExploreController.swift */; };
 		C42293082566E20A00EAA120 /* NotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42293072566E20A00EAA120 /* NotificationsController.swift */; };
 		C422930B2566E22100EAA120 /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422930A2566E22100EAA120 /* ConversationsController.swift */; };
+		C422930E256823D200EAA120 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422930D256823D200EAA120 /* Extensions.swift */; };
+		C422931625682E8E00EAA120 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422931525682E8E00EAA120 /* LoginController.swift */; };
+		C4571BED2568334900DAF77F /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4571BEC2568334900DAF77F /* RegistrationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C41B7DCF256C0B9800140EF2 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		C42292D92566DC3000EAA120 /* TwitterTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42292DC2566DC3000EAA120 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42292DE2566DC3000EAA120 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,6 +35,9 @@
 		C42293042566E1EC00EAA120 /* ExploreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreController.swift; sourceTree = "<group>"; };
 		C42293072566E20A00EAA120 /* NotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsController.swift; sourceTree = "<group>"; };
 		C422930A2566E22100EAA120 /* ConversationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsController.swift; sourceTree = "<group>"; };
+		C422930D256823D200EAA120 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		C422931525682E8E00EAA120 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		C4571BEC2568334900DAF77F /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +116,8 @@
 		C42292F72566DD0100EAA120 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C422930D256823D200EAA120 /* Extensions.swift */,
+				C41B7DCF256C0B9800140EF2 /* Utilities.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -115,6 +125,7 @@
 		C42292FA2566DE1900EAA120 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C422931425682E6300EAA120 /* Authentication */,
 				C42292FB2566DE6000EAA120 /* MainTabController.swift */,
 				C42293012566E16B00EAA120 /* FeedController.swift */,
 				C42293042566E1EC00EAA120 /* ExploreController.swift */,
@@ -122,6 +133,15 @@
 				C422930A2566E22100EAA120 /* ConversationsController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		C422931425682E6300EAA120 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				C422931525682E8E00EAA120 /* LoginController.swift */,
+				C4571BEC2568334900DAF77F /* RegistrationController.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,10 +215,14 @@
 			files = (
 				C42293082566E20A00EAA120 /* NotificationsController.swift in Sources */,
 				C422930B2566E22100EAA120 /* ConversationsController.swift in Sources */,
+				C41B7DD0256C0B9800140EF2 /* Utilities.swift in Sources */,
 				C42292DD2566DC3000EAA120 /* AppDelegate.swift in Sources */,
+				C422930E256823D200EAA120 /* Extensions.swift in Sources */,
+				C422931625682E8E00EAA120 /* LoginController.swift in Sources */,
 				C42293052566E1EC00EAA120 /* ExploreController.swift in Sources */,
 				C42292DF2566DC3000EAA120 /* SceneDelegate.swift in Sources */,
 				C42292FC2566DE6000EAA120 /* MainTabController.swift in Sources */,
+				C4571BED2568334900DAF77F /* RegistrationController.swift in Sources */,
 				C42293022566E16B00EAA120 /* FeedController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

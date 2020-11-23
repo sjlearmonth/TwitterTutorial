@@ -11,6 +11,16 @@ class MainTabController: UITabBarController {
 
     // MARK: - Properties
     
+    private let actionButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .white
+        button.backgroundColor = .twitterBlue
+        button.setImage(#imageLiteral(resourceName: "new_tweet"), for: .normal)
+        button.layer.cornerRadius = 56 / 2
+        button.addTarget(self, action: #selector(handleActionButtonClicked), for: .touchUpInside)
+        return button
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -19,10 +29,18 @@ class MainTabController: UITabBarController {
         view.backgroundColor = .red
         
         configureViewController()
+        
+        configureUI()
 
     }
     
     // MARK: - Helper Functions
+    
+    private func configureUI() {
+        view.addSubview(actionButton)
+        actionButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: 64, paddingRight: 16, width: 56, height: 56)
+        
+    }
     
     private func configureViewController() {
         
@@ -33,10 +51,10 @@ class MainTabController: UITabBarController {
         let exploreNC = makeNavigationController(image: UIImage(named: "search_unselected"), rootViewController: explore)
 
         let notifications = NotificationsController()
-        let notificationsNC = makeNavigationController(image: UIImage(named: "search_unselected"), rootViewController: notifications)
+        let notificationsNC = makeNavigationController(image: UIImage(named: "like_unselected"), rootViewController: notifications)
         
         let conversations = ConversationsController()
-        let conversationsNC = makeNavigationController(image: UIImage(named: "search_unselected"), rootViewController: conversations)
+        let conversationsNC = makeNavigationController(image: UIImage(named: "ic_mail_outline_white_2x-1"), rootViewController: conversations)
         
         viewControllers = [feedNC, exploreNC, notificationsNC, conversationsNC]
     }
@@ -49,6 +67,10 @@ class MainTabController: UITabBarController {
         return nc
     }
 
-
+    // MARK: - Selectors
+    
+    @objc func handleActionButtonClicked() {
+        
+    }
     
 }
