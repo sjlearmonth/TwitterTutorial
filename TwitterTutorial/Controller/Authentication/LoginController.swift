@@ -101,6 +101,10 @@ class LoginController: UIViewController {
     
     @objc func handleDontHaveAnAccountButtonClicked() {
         print("DEBUG: Don't have an account button clicked")
+        let controller = RegistrationController()
+        controller.modalPresentationStyle = .fullScreen
+        controller.modalTransitionStyle = .crossDissolve
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
