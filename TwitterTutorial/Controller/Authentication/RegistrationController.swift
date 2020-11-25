@@ -13,6 +13,7 @@ class RegistrationController: UIViewController {
     // MARK: - Properties
     
     private let imagePickerController = UIImagePickerController()
+    private var profileImage: UIImage?
     
     private let photoPlusButton: UIButton = {
         let button = UIButton(type: .system)
@@ -67,7 +68,6 @@ class RegistrationController: UIViewController {
                                                                           target: self,
                                                                           andSelector: #selector(handleAlreadyHaveAnAccountButtonClicked))
 
-
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -112,8 +112,6 @@ class RegistrationController: UIViewController {
                                           right: view.rightAnchor,
                                           paddingLeft: 40.0,
                                           paddingRight: 40.0)
-        
-
     }
     
     // MARK: - Selectors
@@ -131,18 +129,28 @@ class RegistrationController: UIViewController {
 
     @objc func handleRegistrationButtonClicked() {
         print("DEBUG: registration button clicked")
-        guard let email = emailTextField.text, !email.isEmpty,
-              let password = passwordTextField.text, !password.isEmpty else { return }
         
-        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-            
-            if let error = error {
-                print("DEBUG: error is \(error.localizedDescription)")
-            }
-            
-            print("DEBUG: successfully created user!")
+        guard let profileImage = profileImage else {
+            print("DEBUG: Please select a profile image")
+            return
         }
         
+        guard let email = emailTextField.text, !email.isEmpty,
+              let password = passwordTextField.text, !password.isEmpty,
+              let fullname = fullnameTextField.text, !fullname.isEmpty,
+              let username = usernameTextField.text, !username.isEmpty else { return }
+        
+        let credentials = AuthCredentials(email: email,
+                                          password: password,
+                                          fullname: fullname,
+                                          username: username,
+                                          profileImage: profileImage)
+        
+        AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
+            print("DEBUG: sign up successful")
+            print("DEBUG: handle update user interface here")
+        }
+    
     }
 }
 
@@ -152,6 +160,7 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
         
         guard let profileImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
         
+        self.profileImage = profileImage
         self.photoPlusButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
         self.photoPlusButton.layer.borderColor = UIColor.white.cgColor
         self.photoPlusButton.layer.borderWidth = 3.0

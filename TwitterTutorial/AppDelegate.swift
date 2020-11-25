@@ -11,16 +11,23 @@ import Firebase
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-//    var window: UIWindow? // only include for builds < iOS 13.0
+    var window: UIWindow? // only include for builds < iOS 13.0
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
                             
-//        window = UIWindow() // only include for builds < iOS 13.0
-//        window?.rootViewController = UINavigationController(rootViewController: LoginController()) // only include for builds < iOS 13.0
-//        window?.makeKeyAndVisible() // only include for builds < iOS 13.0
-
+        if #available(iOS 13.0, *) {
+            // Do nothing
+        } else {
+            
+            window = UIWindow() // only include for builds < iOS 13.0
+            window?.rootViewController = UINavigationController(rootViewController: LoginController()) // only include for builds < iOS 13.0
+            window?.makeKeyAndVisible() // only include for builds < iOS 13.0
+            
+        }
+        
         FirebaseApp.configure()
         return true
+        
     }
 
     // MARK: UISceneSession Lifecycle
