@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MainTabController: UITabBarController {
 
@@ -26,11 +27,11 @@ class MainTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .red
+        view.backgroundColor = .twitterBlue
         
-        configureViewController()
+//        logUserOut()
         
-        configureUI()
+        authenticateUserAndConfigureUI()
 
     }
     
@@ -42,7 +43,7 @@ class MainTabController: UITabBarController {
         
     }
     
-    private func configureViewController() {
+    private func configureViewControllers() {
         
         let feed = FeedController()
         let feedNC = makeNavigationController(image: UIImage(named: "home_unselected"), rootViewController: feed)
@@ -73,4 +74,38 @@ class MainTabController: UITabBarController {
         
     }
     
+    // MARK: - API
+    
+    func authenticateUserAndConfigureUI() {
+        
+        if Auth.auth().currentUser == nil {
+            print("DEBUG: User is NOT logged in.")
+            // The UINavigationController instantiation code must be done on the main thread or it won't work
+            DispatchQueue.main.async {
+                let navigationController = UINavigationController(rootViewController: LoginController())
+                navigationController.modalPresentationStyle = .fullScreen
+                navigationController.modalTransitionStyle = .crossDissolve
+                self.present(navigationController, animated: true, completion: nil)
+            }
+        } else {
+            print("DEBUG: User is logged in uid = \(Auth.auth().currentUser?.uid)")
+            configureUI()
+            configureViewControllers()
+            fetchUserData()
+        }
+    }
+    
+    private func logUserOut() {
+        
+        do {
+            try Auth.auth().signOut()
+        } catch let error {
+            print("DEBUG: Failed to sign out with error \(error.localizedDescription)")
+        }
+    }
+    
+    private func fetchUserData() {
+        
+        UserService.shared.fetchUserData()
+    }
 }

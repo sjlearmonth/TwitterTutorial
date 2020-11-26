@@ -97,6 +97,25 @@ class LoginController: UIViewController {
 
     @objc func handleLogInButtonClicked() {
         print("DEBUG: Log In button clicked")
+        
+        guard let email = emailTextField.text, !email.isEmpty,
+              let password = passwordTextField.text, !password.isEmpty else { return }
+        
+        AuthService.shared.logUserIn(withEmail: email, andPassword: password) { (result, error) in
+            if let error = error {
+                print("DEBUG: Error logging in \(error.localizedDescription)")
+                return
+            }
+            
+            print("DEBUG: Successful logging in")
+            
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow}),
+                  let mainTabBarController = window.rootViewController as? MainTabController else { return }
+            
+            mainTabBarController.authenticateUserAndConfigureUI()
+            
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func handleDontHaveAnAccountButtonClicked() {

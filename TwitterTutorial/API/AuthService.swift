@@ -53,7 +53,14 @@ struct AuthService {
                 
             }
         }
-
+    }
+    
+    func logUserIn(withEmail email: String, andPassword password: String, completion: AuthDataResultCallback?) {
+        
+        debugPrint("DEBUG: email is \(email), password is \(password)")
+        
+        Auth.auth().signIn(withEmail: email, password: password, completion: completion)
         
     }
 }
+

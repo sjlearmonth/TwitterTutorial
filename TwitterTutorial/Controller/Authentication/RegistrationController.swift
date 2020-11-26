@@ -149,6 +149,14 @@ class RegistrationController: UIViewController {
         AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
             print("DEBUG: sign up successful")
             print("DEBUG: handle update user interface here")
+            
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow}),
+                  let mainTabBarController = window.rootViewController as? MainTabController else { return }
+            
+            mainTabBarController.authenticateUserAndConfigureUI()
+            
+            self.dismiss(animated: true, completion: nil)
+
         }
     
     }
