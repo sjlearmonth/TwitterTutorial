@@ -11,7 +11,7 @@ struct UserService {
     
     static let shared = UserService()
     
-    func fetchUserData() {
+    func fetchUserData(completion: @escaping (User) -> Void) {
        print("DEBUG: Fetch current user data")
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -19,10 +19,7 @@ struct UserService {
             guard let snapshotDictionary = snapshot.value as? [String: AnyObject] else { return }
             
             let user = User(uid: uid, dictionary: snapshotDictionary)
-            
-            
-            print("DEBUG: Username is \(user.username)")
-            print("DEBUG: Fullname is \(user.fullname)")
+            completion(user)
         }
         
     }
