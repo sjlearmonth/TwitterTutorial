@@ -80,7 +80,13 @@ class MainTabController: UITabBarController {
     // MARK: - Selectors
     
     @objc func handleActionButtonClicked() {
-        
+        print("DEBUG: action button clicked")
+        guard let user = user else { return }
+        let viewController = UploadTweetController(user: user)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.modalTransitionStyle = .crossDissolve
+        present(navigationController, animated: true, completion: nil)
     }
     
     // MARK: - API
@@ -97,7 +103,7 @@ class MainTabController: UITabBarController {
                 self.present(navigationController, animated: true, completion: nil)
             }
         } else {
-            print("DEBUG: User is logged in uid = \(Auth.auth().currentUser?.uid)")
+            print("DEBUG: User is logged in uid = \(Auth.auth().currentUser?.uid ?? "uid unknown")")
             configureUI()
             configureViewControllers()
             fetchUserData()

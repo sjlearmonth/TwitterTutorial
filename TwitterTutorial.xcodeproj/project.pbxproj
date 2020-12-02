@@ -27,6 +27,9 @@
 		C48D1275256D870600C48ADB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C48D1274256D870600C48ADB /* GoogleService-Info.plist */; };
 		C48D12D4256EC77900C48ADB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D12D3256EC77900C48ADB /* Constants.swift */; };
 		C48D12D6256ED13100C48ADB /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D12D5256ED13100C48ADB /* AuthService.swift */; };
+		C4BE9BC52577F50000C1C00B /* UploadTweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BE9BC42577F50000C1C00B /* UploadTweetController.swift */; };
+		C4BE9BC72578052E00C1C00B /* CaptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BE9BC62578052E00C1C00B /* CaptionTextView.swift */; };
+		C4BE9BE5257811F300C1C00B /* TweetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BE9BE4257811F300C1C00B /* TweetService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +55,9 @@
 		C48D1274256D870600C48ADB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C48D12D3256EC77900C48ADB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C48D12D5256ED13100C48ADB /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		C4BE9BC42577F50000C1C00B /* UploadTweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetController.swift; sourceTree = "<group>"; };
+		C4BE9BC62578052E00C1C00B /* CaptionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionTextView.swift; sourceTree = "<group>"; };
+		C4BE9BE4257811F300C1C00B /* TweetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetService.swift; sourceTree = "<group>"; };
 		E889CAF08C39EAF324B40468 /* Pods-TwitterTutorial.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterTutorial.release.xcconfig"; path = "Target Support Files/Pods-TwitterTutorial/Pods-TwitterTutorial.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,6 +123,7 @@
 			children = (
 				C48D12D5256ED13100C48ADB /* AuthService.swift */,
 				C402015F25701D5100CCBB00 /* UserService.swift */,
+				C4BE9BE4257811F300C1C00B /* TweetService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -131,6 +138,7 @@
 		C42292F52566DCA900EAA120 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C4BE9BC62578052E00C1C00B /* CaptionTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -162,6 +170,7 @@
 				C42293042566E1EC00EAA120 /* ExploreController.swift */,
 				C42293072566E20A00EAA120 /* NotificationsController.swift */,
 				C422930A2566E22100EAA120 /* ConversationsController.swift */,
+				C4BE9BC42577F50000C1C00B /* UploadTweetController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -301,12 +310,14 @@
 			files = (
 				C402016025701D5100CCBB00 /* UserService.swift in Sources */,
 				C42293082566E20A00EAA120 /* NotificationsController.swift in Sources */,
+				C4BE9BC72578052E00C1C00B /* CaptionTextView.swift in Sources */,
 				C422930B2566E22100EAA120 /* ConversationsController.swift in Sources */,
 				C41B7DD0256C0B9800140EF2 /* Utilities.swift in Sources */,
 				C42292DD2566DC3000EAA120 /* AppDelegate.swift in Sources */,
 				C422930E256823D200EAA120 /* Extensions.swift in Sources */,
 				C422931625682E8E00EAA120 /* LoginController.swift in Sources */,
 				C48D12D6256ED13100C48ADB /* AuthService.swift in Sources */,
+				C4BE9BC52577F50000C1C00B /* UploadTweetController.swift in Sources */,
 				C4020162257024B300CCBB00 /* User.swift in Sources */,
 				C42293052566E1EC00EAA120 /* ExploreController.swift in Sources */,
 				C42292DF2566DC3000EAA120 /* SceneDelegate.swift in Sources */,
@@ -314,6 +325,7 @@
 				C4571BED2568334900DAF77F /* RegistrationController.swift in Sources */,
 				C42293022566E16B00EAA120 /* FeedController.swift in Sources */,
 				C48D12D4256EC77900C48ADB /* Constants.swift in Sources */,
+				C4BE9BE5257811F300C1C00B /* TweetService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

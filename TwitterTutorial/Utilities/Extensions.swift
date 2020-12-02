@@ -103,3 +103,20 @@ extension UIColor {
     
     static let twitterBlue = UIColor.rgb(red: 29, green: 161, blue: 242)
 }
+
+extension String {
+    var isNotEmpty: Bool {
+        return !isEmpty
+    }
+}
+
+extension UILabel {
+    var isVisible: Bool {
+        get {
+            return !isHidden
+        }
+        set(newValue){
+            isHidden = !newValue
+        }
+    }
+}

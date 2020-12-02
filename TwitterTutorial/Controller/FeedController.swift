@@ -35,6 +35,7 @@ class FeedController: UIViewController {
         
         let imageView = UIImageView(image: UIImage(named: "twitter_logo_blue"))
         imageView.contentMode = .scaleAspectFit
+        imageView.setDimensions(width: 44.0, height: 44.0)
         navigationItem.titleView = imageView
         
     }
