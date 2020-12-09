@@ -32,7 +32,6 @@ class UploadTweetController: UIViewController {
         piv.clipsToBounds = true
         piv.setDimensions(width: 48.0, height: 48.0)
         piv.layer.cornerRadius = 48.0 / 2.0
-        piv.contentMode = .scaleAspectFill
         piv.backgroundColor = .twitterBlue
         return piv
     }()

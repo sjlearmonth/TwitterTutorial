@@ -1,0 +1,32 @@
+//
+//  Tweet.swift
+//  TwitterTutorial
+//
+//  Created by Stephen Learmonth on 09/12/2020.
+//
+
+import Foundation
+
+struct Tweet {
+    let caption: String
+    let tweetId: String
+    let uid: String
+    let likes: Int
+    var timestamp: Date!
+    let retweetCount: Int
+    
+    init(tweetId: String, dictionary: [String : Any]) {
+        self.caption = dictionary["caption"] as? String ?? "Empty caption"
+        self.tweetId = tweetId
+        self.uid = dictionary["uid"] as? String ?? "Invalid uid"
+        self.likes = dictionary["likes"] as? Int ?? 0
+        if let timestamp = dictionary["timestamp"] as? Double {
+            self.timestamp = Date(timeIntervalSince1970: timestamp)
+        }
+        self.retweetCount = dictionary["retweets"] as? Int ?? 0
+        
+        
+    }
+    
+    
+}
