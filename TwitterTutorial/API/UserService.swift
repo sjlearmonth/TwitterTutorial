@@ -11,9 +11,7 @@ struct UserService {
     
     static let shared = UserService()
     
-    func fetchUserData(completion: @escaping (User) -> Void) {
-       print("DEBUG: Fetch current user data")
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+    func fetchUserData(uid: String, completion: @escaping (User) -> Void) {
         
         USERS_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
             guard let snapshotDictionary = snapshot.value as? [String: AnyObject] else { return }

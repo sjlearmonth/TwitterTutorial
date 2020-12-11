@@ -14,8 +14,9 @@ struct Tweet {
     let likes: Int
     var timestamp: Date!
     let retweetCount: Int
+    let user: User
     
-    init(tweetId: String, dictionary: [String : Any]) {
+    init(user: User, tweetId: String, dictionary: [String : Any]) {
         self.caption = dictionary["caption"] as? String ?? "Empty caption"
         self.tweetId = tweetId
         self.uid = dictionary["uid"] as? String ?? "Invalid uid"
@@ -24,7 +25,7 @@ struct Tweet {
             self.timestamp = Date(timeIntervalSince1970: timestamp)
         }
         self.retweetCount = dictionary["retweets"] as? Int ?? 0
-        
+        self.user = user
         
     }
     
