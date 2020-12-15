@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ProfileFilterViewDelegate: class {
+    func filterView(_ view: ProfileFilterView, didSelect indexPath: IndexPath)
+}
+
 class ProfileFilterView: UIView {
     
     // MARK: - Properties
@@ -23,6 +27,8 @@ class ProfileFilterView: UIView {
     
     private let reuseIdentifier = "ProfileFilterCell"
     
+    weak var delegate: ProfileFilterViewDelegate?
+    
     // MARK: - Lifecycle
     
     override init(frame: CGRect) {
@@ -30,6 +36,9 @@ class ProfileFilterView: UIView {
         
         addSubview(collectionView)
         collectionView.addConstraintsToFillView(self)
+        
+        let selectedIndexPath = IndexPath(row: 0, section: 0)
+        collectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: .left)
     }
     
     required init?(coder: NSCoder) {
@@ -42,11 +51,14 @@ class ProfileFilterView: UIView {
 
 extension ProfileFilterView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return ProfileFilterOptions.allCases.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ProfileFilterCell
+        
+        let option = ProfileFilterOptions(rawValue: indexPath.row)
+        cell.option = option ?? .tweets
         
         return cell
     }
@@ -55,7 +67,9 @@ extension ProfileFilterView: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 
 extension ProfileFilterView: UICollectionViewDelegate {
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.filterView(self, didSelect: indexPath)
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
