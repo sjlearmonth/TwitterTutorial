@@ -42,6 +42,8 @@ class FeedController: UICollectionViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.barStyle = .default
+        
     }
     
     // MARK: - Helper Functions
