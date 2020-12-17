@@ -37,6 +37,7 @@
 		C4C0E95825814298001A558E /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0E95725814298001A558E /* TweetCell.swift */; };
 		C4C0E95A2583DD9D001A558E /* TweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0E9592583DD9D001A558E /* TweetViewModel.swift */; };
 		C4C0E95C2583EE0B001A558E /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0E95B2583EE0B001A558E /* ProfileController.swift */; };
+		C4CF9EB7258BBDEF00206C7A /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CF9EB6258BBDEF00206C7A /* UserCell.swift */; };
 		C4E592BC2589239C008FD310 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E592BB2589239C008FD310 /* ProfileHeaderViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +74,7 @@
 		C4C0E95725814298001A558E /* TweetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		C4C0E9592583DD9D001A558E /* TweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetViewModel.swift; sourceTree = "<group>"; };
 		C4C0E95B2583EE0B001A558E /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		C4CF9EB6258BBDEF00206C7A /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		C4E592BB2589239C008FD310 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		E889CAF08C39EAF324B40468 /* Pods-TwitterTutorial.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterTutorial.release.xcconfig"; path = "Target Support Files/Pods-TwitterTutorial/Pods-TwitterTutorial.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,6 +163,7 @@
 				C4775E4F2587D8850081A917 /* ProfileHeader.swift */,
 				C4775E512587EB730081A917 /* ProfileFilterView.swift */,
 				C4775E532587EF090081A917 /* ProfileFilterCell.swift */,
+				C4CF9EB6258BBDEF00206C7A /* UserCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				C4BE9BC72578052E00C1C00B /* CaptionTextView.swift in Sources */,
 				C4775E542587EF090081A917 /* ProfileFilterCell.swift in Sources */,
 				C422930B2566E22100EAA120 /* ConversationsController.swift in Sources */,
+				C4CF9EB7258BBDEF00206C7A /* UserCell.swift in Sources */,
 				C41B7DD0256C0B9800140EF2 /* Utilities.swift in Sources */,
 				C42292DD2566DC3000EAA120 /* AppDelegate.swift in Sources */,
 				C422930E256823D200EAA120 /* Extensions.swift in Sources */,
