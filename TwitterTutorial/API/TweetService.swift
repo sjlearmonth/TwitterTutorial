@@ -10,7 +10,7 @@ import Firebase
 struct TweetService {
     static let shared = TweetService()
     
-    func uploadTweet(caption: String, completion: @escaping ( Error?, DatabaseReference) -> Void) {
+    func uploadTweet(caption: String, completion: @escaping DatabaseCompletionType) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         let values: [AnyHashable: Any] = ["uid": uid,

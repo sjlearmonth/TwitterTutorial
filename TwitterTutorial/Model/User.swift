@@ -15,6 +15,7 @@ struct User {
     var profileImageURL: URL?
     let uid: String
     var isCurrentUser: Bool { return Auth.auth().currentUser?.uid == uid }
+    var isFollowed = false
     
     init(uid: String, dictionary: [String: AnyObject]) {
         self.uid = uid

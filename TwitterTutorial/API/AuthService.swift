@@ -19,7 +19,7 @@ struct AuthCredentials {
 struct AuthService {
     static let shared = AuthService()
     
-    func registerUser(credentials: AuthCredentials, completion: @escaping (Error?, DatabaseReference) -> Void) {
+    func registerUser(credentials: AuthCredentials, completion: @escaping DatabaseCompletionType) {
         
         let email = credentials.email
         let password = credentials.password
