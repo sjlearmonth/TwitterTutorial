@@ -43,7 +43,6 @@ class FeedController: UICollectionViewController {
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.barStyle = .default
-        
     }
     
     // MARK: - Helper Functions
@@ -102,7 +101,7 @@ extension FeedController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let controller = TweetController(collectionViewLayout: UICollectionViewFlowLayout())
+        let controller = TweetController(tweet: tweets[indexPath.row])
         controller.modalPresentationStyle = .fullScreen
         controller.modalTransitionStyle = .crossDissolve
         navigationController?.pushViewController(controller, animated: true)
