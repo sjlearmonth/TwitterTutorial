@@ -12,6 +12,8 @@ class UploadTweetController: UIViewController {
     // MARK: - Properties
     
     private let user: User
+    private let config: UploadTweetConfiguration
+    
     
     private lazy var tweetActionButton: UIButton = {
         let button = UIButton(type: .system)
@@ -40,8 +42,9 @@ class UploadTweetController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(user: User) {
+    init(user: User, config: UploadTweetConfiguration) {
         self.user = user
+        self.config = config
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -65,6 +68,7 @@ class UploadTweetController: UIViewController {
         let stackView = UIStackView(arrangedSubviews: [profileImageView, captionTextView])
         stackView.axis = .horizontal
         stackView.spacing = 12.0
+        stackView.alignment = .leading
         
         view.addSubview(stackView)
         stackView.anchor(top: view.safeAreaLayoutGuide.topAnchor,

@@ -82,7 +82,7 @@ class MainTabController: UITabBarController {
     @objc func handleActionButtonClicked() {
         print("DEBUG: action button clicked")
         guard let user = user else { return }
-        let viewController = UploadTweetController(user: user)
+        let viewController = UploadTweetController(user: user, config: .tweet)
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.modalPresentationStyle = .fullScreen
         navigationController.modalTransitionStyle = .crossDissolve

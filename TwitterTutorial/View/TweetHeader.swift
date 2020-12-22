@@ -11,6 +11,12 @@ class TweetHeader: UICollectionReusableView {
     
     // MARK: - Properties
     
+    var tweet: Tweet? {
+        didSet {
+            configure()
+        }
+    }
+    
     private lazy var profileImageView: UIImageView = {
         let piv = UIImageView()
         piv.contentMode = .scaleAspectFill
@@ -88,18 +94,31 @@ class TweetHeader: UICollectionReusableView {
         return view
     }()
     
-    private lazy var retweetsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "2 retweets"
-        label.font = UIFont.systemFont(ofSize: 14.0)
-        return label
+    private lazy var retweetsLabel = UILabel()
+    private lazy var likesLabel = UILabel()
+    
+    private lazy var commentButton: UIButton = {
+        let button = createButton(withImageName: "comment")
+        button.addTarget(self, action: #selector(handleCommentButtonClicked), for: .touchUpInside)
+        return button
     }()
 
-    private lazy var likesLabel: UILabel = {
-        let label = UILabel()
-        label.text = "0 likes"
-        label.font = UIFont.systemFont(ofSize: 14.0)
-        return label
+    private lazy var retweetButton: UIButton = {
+        let button = createButton(withImageName: "retweet")
+        button.addTarget(self, action: #selector(handleRetweetButtonClicked), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var likeButton: UIButton = {
+        let button = createButton(withImageName: "like")
+        button.addTarget(self, action: #selector(handleLikeButtonClicked), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var shareButton: UIButton = {
+        let button = createButton(withImageName: "share")
+        button.addTarget(self, action: #selector(handleShareButtonClicked), for: .touchUpInside)
+        return button
     }()
 
     // MARK: - Lifecycle
@@ -109,7 +128,7 @@ class TweetHeader: UICollectionReusableView {
         
         let labelStack = UIStackView(arrangedSubviews: [fullnameLabel, usernameLabel])
         labelStack.axis = .vertical
-        labelStack.spacing = -6
+        labelStack.spacing = -3
         
         let stackView = UIStackView(arrangedSubviews: [profileImageView, labelStack])
         stackView.spacing = 12
@@ -118,17 +137,26 @@ class TweetHeader: UICollectionReusableView {
         stackView.anchor(top: topAnchor, left: leftAnchor, paddingTop: 16.0, paddingLeft: 16.0)
         
         addSubview(captionLabel)
-        captionLabel.anchor(top: stackView.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 20.0, paddingLeft: 16.0, paddingRight: 16.0)
+        captionLabel.anchor(top: stackView.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 12.0, paddingLeft: 16.0, paddingRight: 16.0)
         
         addSubview(dateLabel)
-        dateLabel.anchor(top: captionLabel.bottomAnchor, left: leftAnchor, paddingTop: 20.0, paddingLeft: 16.0)
+        dateLabel.anchor(top: captionLabel.bottomAnchor, left: leftAnchor, paddingTop: 12.0, paddingLeft: 16.0)
         
         addSubview(optionsButton)
         optionsButton.centerY(inView: stackView)
         optionsButton.anchor(right: rightAnchor, paddingRight: 8.0)
         
         addSubview(statsView)
-        statsView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 20.0, height: 40.0)
+        statsView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 12.0, height: 40.0)
+        
+        let actionStack = UIStackView(arrangedSubviews: [commentButton, retweetButton, likeButton, shareButton])
+        actionStack.axis = .horizontal
+        actionStack.spacing = 72
+        actionStack.distribution = .fillEqually
+        
+        addSubview(actionStack)
+        actionStack.centerX(inView: self)
+        actionStack.anchor(bottom: bottomAnchor, paddingBottom: 12.0)
         
     }
     
@@ -144,5 +172,45 @@ class TweetHeader: UICollectionReusableView {
     
     @objc func handleOptionsButtonClicked() {
         print("DEBUG: options button clicked")
+    }
+    
+    @objc func handleCommentButtonClicked() {
+        print("DEBUG: comment button clicked")
+    }
+
+    @objc func handleRetweetButtonClicked() {
+        print("DEBUG: retweet button clicked")
+    }
+
+    @objc func handleLikeButtonClicked() {
+        print("DEBUG: like button clicked")
+    }
+
+    @objc func handleShareButtonClicked() {
+        print("DEBUG: share button clicked")
+    }
+
+    // MARK: - Helper Functions
+    
+    private func createButton(withImageName imageName: String) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: imageName), for: .normal)
+        button.tintColor = .darkGray
+        button.setDimensions(width: 20.0, height: 20.0)
+        return button
+    }
+    
+    private func configure() {
+        guard let tweet = tweet else { return }
+        
+        let viewModel = TweetViewModel(tweet: tweet)
+        
+        captionLabel.text = tweet.caption
+        fullnameLabel.text = tweet.user.fullname
+        usernameLabel.text = viewModel.usernameText
+        profileImageView.sd_setImage(with: viewModel.profileImageURL)
+        dateLabel.text = viewModel.headerTimestamp
+        retweetsLabel.attributedText = viewModel.retweetsAttributedString
+        likesLabel.attributedText = viewModel.likesAttributedString
     }
 }
