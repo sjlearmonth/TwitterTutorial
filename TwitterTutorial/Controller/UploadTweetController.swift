@@ -13,7 +13,7 @@ class UploadTweetController: UIViewController {
     
     private let user: User
     private let config: UploadTweetConfiguration
-    
+    private lazy var viewModel = UploadTweetViewModel(config: config)
     
     private lazy var tweetActionButton: UIButton = {
         let button = UIButton(type: .system)
@@ -36,6 +36,15 @@ class UploadTweetController: UIViewController {
         piv.layer.cornerRadius = 48.0 / 2.0
         piv.backgroundColor = .twitterBlue
         return piv
+    }()
+    
+    private lazy var replyLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.textColor = .lightGray
+        label.text = "replying to @spiderman"
+        label.setWidth(to: view.frame.width)
+        return label
     }()
     
     private let captionTextView = CaptionTextView()
@@ -65,20 +74,32 @@ class UploadTweetController: UIViewController {
         view.backgroundColor = .white
         configureNavigationBar()
                 
-        let stackView = UIStackView(arrangedSubviews: [profileImageView, captionTextView])
-        stackView.axis = .horizontal
-        stackView.spacing = 12.0
-        stackView.alignment = .leading
+        let imageCaptionStack = UIStackView(arrangedSubviews: [profileImageView, captionTextView])
+        imageCaptionStack.axis = .horizontal
+        imageCaptionStack.spacing = 12.0
+        imageCaptionStack.alignment = .leading
         
-        view.addSubview(stackView)
-        stackView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                         left: view.leftAnchor,
-                         right: view.rightAnchor,
-                         paddingTop: 16.0,
-                         paddingLeft: 16.0,
-                         paddingRight: 16.0)
+        let stack = UIStackView(arrangedSubviews: [replyLabel, imageCaptionStack])
+        stack.axis = .vertical
+        stack.spacing = 12
+        
+        view.addSubview(stack)
+        stack.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                     left: view.leftAnchor,
+                     right: view.rightAnchor,
+                     paddingTop: 16.0,
+                     paddingLeft: 16.0,
+                     paddingRight: 16.0)
         
         profileImageView.sd_setImage(with: user.profileImageURL, completed: nil)
+        
+        tweetActionButton.setTitle(viewModel.actionButtonTitle, for: .normal)
+        captionTextView.placeholderLabel.text = viewModel.placeholderText
+        
+        replyLabel.isVisible = viewModel.shouldShowReplyLabel
+        guard let replyText = viewModel.replyText else { return }
+        replyLabel.text = replyText
+        
         
     }
     
@@ -103,7 +124,7 @@ class UploadTweetController: UIViewController {
     @objc func handleTweetActionButtonClicked() {
         print("DEBUG: tweet action button clicked")
         guard let caption = captionTextView.text else { return }
-        TweetService.shared.uploadTweet(caption: caption) { (error, reference) in
+        TweetService.shared.uploadTweet(caption: caption, type: config) { (error, reference) in
             print("DEBUG: Tweet has been uploaded to the realtime database.")
             if let error = error {
                 print("DEBUG: Failed to upload tweet with error = \(error.localizedDescription)")
