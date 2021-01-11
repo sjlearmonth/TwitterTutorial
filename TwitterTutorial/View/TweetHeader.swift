@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol TweetHeaderDelegate: class {
+    func showActionSheet()
+}
+
 class TweetHeader: UICollectionReusableView {
     
     // MARK: - Properties
@@ -16,6 +20,8 @@ class TweetHeader: UICollectionReusableView {
             configure()
         }
     }
+    
+    weak var delegate: TweetHeaderDelegate?
     
     private lazy var profileImageView: UIImageView = {
         let piv = UIImageView()
@@ -156,7 +162,7 @@ class TweetHeader: UICollectionReusableView {
         
         addSubview(actionStack)
         actionStack.centerX(inView: self)
-        actionStack.anchor(bottom: bottomAnchor, paddingBottom: 12.0)
+        actionStack.anchor(top: statsView.bottomAnchor, paddingTop: 16.0)
         
     }
     
@@ -171,7 +177,7 @@ class TweetHeader: UICollectionReusableView {
     }
     
     @objc func handleOptionsButtonClicked() {
-        print("DEBUG: options button clicked")
+        delegate?.showActionSheet()
     }
     
     @objc func handleCommentButtonClicked() {
