@@ -14,6 +14,8 @@ let USER_TWEETS_REF = REALTIME_DATABASE_REF.child("user-tweets")
 let USER_FOLLOWERS_REF = REALTIME_DATABASE_REF.child("user-followers")
 let USER_FOLLOWING_REF = REALTIME_DATABASE_REF.child("user-following")
 let TWEET_REPLIES_REF = REALTIME_DATABASE_REF.child("tweet-replies")
+let USER_LIKES_REF = REALTIME_DATABASE_REF.child("user-likes")
+let TWEET_LIKES_REF = REALTIME_DATABASE_REF.child("tweet-likes")
 
 let STORAGE_REF = Storage.storage().reference()
 let PROFILE_IMAGES_REF = STORAGE_REF.child("profile_images")

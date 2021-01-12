@@ -10,6 +10,7 @@ import UIKit
 protocol TweetCellDelegate: class {
     func handleProfileImageTapped(_ cell: TweetCell)
     func handleReplyTapped(_ cell: TweetCell)
+    func handleLikeTapped(_ cell: TweetCell)
 }
 
 class TweetCell: UICollectionViewCell {
@@ -130,7 +131,6 @@ class TweetCell: UICollectionViewCell {
                              bottom: bottomAnchor,
                              right: rightAnchor,
                              height: 1.0)
-        
     }
     
     required init?(coder: NSCoder) {
@@ -149,7 +149,7 @@ class TweetCell: UICollectionViewCell {
     }
 
     @objc func handleLikeButtonClicked() {
-        print("DEBUG: like button clicked")
+        delegate?.handleLikeTapped(self)
     }
 
     @objc func handleShareButtonClicked() {
