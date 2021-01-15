@@ -27,8 +27,5 @@ struct Tweet {
         }
         self.retweetCount = dictionary["retweets"] as? Int ?? 0
         self.user = user
-        
     }
-    
-    
 }

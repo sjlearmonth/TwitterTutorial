@@ -29,7 +29,6 @@ struct User {
             guard let URL = URL(string: profileImageURLString) else { return }
             self.profileImageURL = URL
         }
-        
     }
 }
 
@@ -37,3 +36,4 @@ struct UserRelationStats {
     var followers: Int
     var following: Int
 }
+
