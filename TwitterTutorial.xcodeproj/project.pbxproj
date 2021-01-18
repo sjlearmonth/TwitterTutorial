@@ -31,6 +31,9 @@
 		C4775E502587D8850081A917 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4775E4F2587D8850081A917 /* ProfileHeader.swift */; };
 		C4775E522587EB730081A917 /* ProfileFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4775E512587EB730081A917 /* ProfileFilterView.swift */; };
 		C4775E542587EF090081A917 /* ProfileFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4775E532587EF090081A917 /* ProfileFilterCell.swift */; };
+		C481BCA325B5F4E500BD7D8C /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481BCA225B5F4E500BD7D8C /* Notification.swift */; };
+		C481BCA525B5F87C00BD7D8C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481BCA425B5F87C00BD7D8C /* NotificationService.swift */; };
+		C481BCA725B607D900BD7D8C /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481BCA625B607D900BD7D8C /* NotificationCell.swift */; };
 		C48D125B256D6E9B00C48ADB /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C48D125A256D6E9B00C48ADB /* Info.plist */; };
 		C48D1275256D870600C48ADB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C48D1274256D870600C48ADB /* GoogleService-Info.plist */; };
 		C48D12D4256EC77900C48ADB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D12D3256EC77900C48ADB /* Constants.swift */; };
@@ -74,6 +77,9 @@
 		C4775E4F2587D8850081A917 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
 		C4775E512587EB730081A917 /* ProfileFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterView.swift; sourceTree = "<group>"; };
 		C4775E532587EF090081A917 /* ProfileFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterCell.swift; sourceTree = "<group>"; };
+		C481BCA225B5F4E500BD7D8C /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		C481BCA425B5F87C00BD7D8C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		C481BCA625B607D900BD7D8C /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		C48D125A256D6E9B00C48ADB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C48D1274256D870600C48ADB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C48D12D3256EC77900C48ADB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -154,6 +160,7 @@
 				C48D12D5256ED13100C48ADB /* AuthService.swift */,
 				C402015F25701D5100CCBB00 /* UserService.swift */,
 				C4BE9BE4257811F300C1C00B /* TweetService.swift */,
+				C481BCA425B5F87C00BD7D8C /* NotificationService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -180,6 +187,7 @@
 				C4CF9EB6258BBDEF00206C7A /* UserCell.swift */,
 				C4201DA82590FF68007202A4 /* TweetHeader.swift */,
 				C410055C25ACBC6E00342BE8 /* ActionSheetCell.swift */,
+				C481BCA625B607D900BD7D8C /* NotificationCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -189,6 +197,7 @@
 			children = (
 				C4020161257024B300CCBB00 /* User.swift */,
 				C4C0E955258130A8001A558E /* Tweet.swift */,
+				C481BCA225B5F4E500BD7D8C /* Notification.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -369,16 +378,19 @@
 				C4775E502587D8850081A917 /* ProfileHeader.swift in Sources */,
 				C4C0E95825814298001A558E /* TweetCell.swift in Sources */,
 				C422931625682E8E00EAA120 /* LoginController.swift in Sources */,
+				C481BCA325B5F4E500BD7D8C /* Notification.swift in Sources */,
 				C48D12D6256ED13100C48ADB /* AuthService.swift in Sources */,
 				C4E592BC2589239C008FD310 /* ProfileHeaderViewModel.swift in Sources */,
 				C4BE9BC52577F50000C1C00B /* UploadTweetController.swift in Sources */,
 				C4020162257024B300CCBB00 /* User.swift in Sources */,
 				C42293052566E1EC00EAA120 /* ExploreController.swift in Sources */,
 				C42292DF2566DC3000EAA120 /* SceneDelegate.swift in Sources */,
+				C481BCA525B5F87C00BD7D8C /* NotificationService.swift in Sources */,
 				C42292FC2566DE6000EAA120 /* MainTabController.swift in Sources */,
 				C4201DA92590FF68007202A4 /* TweetHeader.swift in Sources */,
 				C4C0E95A2583DD9D001A558E /* TweetViewModel.swift in Sources */,
 				C410055F25ACC30F00342BE8 /* ActionSheetViewModel.swift in Sources */,
+				C481BCA725B607D900BD7D8C /* NotificationCell.swift in Sources */,
 				C4571BED2568334900DAF77F /* RegistrationController.swift in Sources */,
 				C42293022566E16B00EAA120 /* FeedController.swift in Sources */,
 				C4775E522587EB730081A917 /* ProfileFilterView.swift in Sources */,

@@ -81,7 +81,17 @@ class FeedController: UICollectionViewController {
     private func fetchTweets() {
         TweetService.shared.fetchTweets {tweets in
             self.tweets = tweets
-            
+            self.checkIfUserLikedTweets(tweets)
+        }
+    }
+    
+    func checkIfUserLikedTweets(_ tweets: [Tweet]) {
+        for (index, tweet) in tweets.enumerated() {
+            TweetService.shared.checkIfUserLikedTweet(tweet) { (didLike) in
+                guard didLike == true else { return }
+                
+                self.tweets[index].didLike = true
+            }
         }
     }
 }
@@ -130,6 +140,10 @@ extension FeedController: TweetCellDelegate {
             cell.tweet?.didLike.toggle()
             let likes = tweet.didLike ? tweet.likes - 1 : tweet.likes + 1
             cell.tweet?.likes = likes
+            
+            // only upload notification if tweet is being liked
+            guard !tweet.didLike else { return }
+            NotificationService.shared.uploadNotification(type: .like, tweet: tweet)
         }
     }
     

@@ -93,6 +93,9 @@ struct TweetService {
         
         if tweet.didLike {
             // unlike tweet
+            USER_LIKES_REF.child(uid).child(tweet.tweetId).removeValue { (error, ref) in
+                TWEET_LIKES_REF.child(tweet.tweetId).removeValue(completionBlock: completion)
+            }
             
         } else {
             // like tweet
@@ -101,6 +104,14 @@ struct TweetService {
             }
         }
         
+    }
+    
+    func checkIfUserLikedTweet(_ tweet: Tweet, completion: @escaping (Bool) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        USER_LIKES_REF.child(uid).child(tweet.tweetId).observeSingleEvent(of: .value) { (snapshot) in
+            completion(snapshot.exists())
+        }
     }
 }
 
