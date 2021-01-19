@@ -69,10 +69,6 @@ struct UserService {
                 let relationStats = UserRelationStats(followers: followers, following: following)
                 completion(relationStats)
             }
-            
-            
         }
     }
-    
-    
 }

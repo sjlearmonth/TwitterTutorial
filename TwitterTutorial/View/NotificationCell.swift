@@ -6,10 +6,22 @@
 //
 
 import UIKit
+import SDWebImage
+
+protocol NotificationCellDelegate: class {
+    func didTapProfileImage(_ cell: NotificationCell)
+    func didTapFollowButton(_ cell: NotificationCell)
+}
 
 class NotificationCell: UITableViewCell {
     
     // MARK: - Properties
+    
+    var notification: Notification? {
+        didSet { configure() }
+    }
+    
+    weak var delegate: NotificationCellDelegate?
     
     private lazy var profileImageView: UIImageView = {
         let piv = UIImageView()
@@ -22,6 +34,19 @@ class NotificationCell: UITableViewCell {
         piv.addGestureRecognizer(tapGestureRecognizer)
         piv.isUserInteractionEnabled = true
         return piv
+    }()
+    
+    private lazy var followButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Loading", for: .normal)
+        button.setTitleColor(.twitterBlue, for: .normal)
+        button.backgroundColor = .white
+        button.layer.borderColor = UIColor.twitterBlue.cgColor
+        button.layer.borderWidth = 2
+        button.addTarget(self, action: #selector(handleFollowButtonClicked), for: .touchUpInside)
+        button.setDimensions(width: 92.0, height: 32.0)
+        button.layer.cornerRadius = 32.0 / 2.0
+        return button
     }()
     
     private let notificationLabel: UILabel = {
@@ -44,6 +69,10 @@ class NotificationCell: UITableViewCell {
         addSubview(stack)
         stack.centerY(inView: self, leftAnchor: leftAnchor, paddingLeft: 12)
         stack.anchor(right: rightAnchor, paddingRight: 12)
+        
+        addSubview(followButton)
+        followButton.centerY(inView: self)
+        followButton.anchor(right: rightAnchor, paddingRight: 12.0)
     }
     
     required init?(coder: NSCoder) {
@@ -53,6 +82,22 @@ class NotificationCell: UITableViewCell {
     // MARK: - Selectors
     
     @objc func handleProfileImageTapped() {
+        delegate?.didTapProfileImage(self)
+    }
+    
+    @objc func handleFollowButtonClicked() {
+        delegate?.didTapFollowButton(self)
+    }
+    
+    // MARK: - Helper Functions
+    
+    private func configure() {
+        guard let notification = notification else { return }
+        let viewModel = NotificationViewModel(notification: notification)
+        profileImageView.sd_setImage(with: viewModel.profileImageURL)
+        notificationLabel.attributedText = viewModel.notificationText
         
+        followButton.isHidden = viewModel.shouldHideFollowButton
+        followButton.setTitle(viewModel.followButtonText, for: .normal)
     }
 }
