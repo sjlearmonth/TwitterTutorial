@@ -27,7 +27,11 @@ struct TweetService {
             }
             break
         case .reply(let tweet):
-            TWEET_REPLIES_REF.child(tweet.tweetId).childByAutoId().updateChildValues(values, withCompletionBlock: completion)
+            TWEET_REPLIES_REF.child(tweet.tweetId).childByAutoId().updateChildValues(values) { (error, ref) in
+                guard let replyKey = ref.key else { return }
+                USER_REPLIES_REF.child(uid).updateChildValues([tweet.tweetId: replyKey], withCompletionBlock: completion)
+            }
+            
             break
         }
     }
@@ -69,6 +73,40 @@ struct TweetService {
             UserService.shared.fetchUserData(uid: uid) { (user) in
                 let tweet = Tweet(user: user, tweetId: tweetId, dictionary: dictionary)
                 completion(tweet)
+            }
+        }
+    }
+    
+    func fetchLikes(forUser user: User, completion: @escaping ([Tweet]) -> Void) {
+        var tweets = [Tweet]()
+        
+        USER_LIKES_REF.child(user.uid).observe(.childAdded) { snapshot in
+            let tweetId = snapshot.key
+            self.fetchTweet(withTweetId: tweetId) { likedTweet in
+                var tweet = likedTweet
+                tweet.didLike = true
+                tweets.append(tweet)
+                completion(tweets)
+            }
+        }
+    }
+    
+    func fetchReplies(forUser user: User, completion: @escaping ([Tweet]) -> Void) {
+        var replies = [Tweet]()
+        
+        USER_REPLIES_REF.child(user.uid).observe(.childAdded) { snapshot in
+            let tweetKey = snapshot.key
+            guard let replyKey = snapshot.value as? String else { return }
+            
+            TWEET_REPLIES_REF.child(tweetKey).child(replyKey).observeSingleEvent(of: .value) { snapshot in
+                guard let dictionary = snapshot.value as? [String : Any] else { return }
+                guard let uid = dictionary["uid"] as? String else { return }
+
+                UserService.shared.fetchUserData(uid: uid) { (user) in
+                    let tweet = Tweet(user: user, tweetId: tweetKey, dictionary: dictionary)
+                    replies.append(tweet)
+                    completion(replies)
+                }
             }
         }
     }
