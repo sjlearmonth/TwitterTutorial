@@ -76,6 +76,13 @@ class TweetHeader: UICollectionReusableView {
         return button
     }()
     
+    private let replyLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 12)
+        return label
+    }()
+    
     private lazy var statsView: UIView = {
         let view = UIView()
         
@@ -136,20 +143,25 @@ class TweetHeader: UICollectionReusableView {
         labelStack.axis = .vertical
         labelStack.spacing = -3
         
-        let stackView = UIStackView(arrangedSubviews: [profileImageView, labelStack])
-        stackView.spacing = 12
+        let imageCaptionStack = UIStackView(arrangedSubviews: [profileImageView, labelStack])
+        imageCaptionStack.spacing = 12
         
-        addSubview(stackView)
-        stackView.anchor(top: topAnchor, left: leftAnchor, paddingTop: 16.0, paddingLeft: 16.0)
+        let stack = UIStackView(arrangedSubviews: [replyLabel, imageCaptionStack])
+        stack.axis = .vertical
+        stack.spacing = 8
+        stack.distribution = .fillProportionally
+        
+        addSubview(stack)
+        stack.anchor(top: topAnchor, left: leftAnchor, paddingTop: 16.0, paddingLeft: 16.0)
         
         addSubview(captionLabel)
-        captionLabel.anchor(top: stackView.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 12.0, paddingLeft: 16.0, paddingRight: 16.0)
+        captionLabel.anchor(top: stack.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 12.0, paddingLeft: 16.0, paddingRight: 16.0)
         
         addSubview(dateLabel)
         dateLabel.anchor(top: captionLabel.bottomAnchor, left: leftAnchor, paddingTop: 12.0, paddingLeft: 16.0)
         
         addSubview(optionsButton)
-        optionsButton.centerY(inView: stackView)
+        optionsButton.centerY(inView: stack)
         optionsButton.anchor(right: rightAnchor, paddingRight: 8.0)
         
         addSubview(statsView)
@@ -220,5 +232,8 @@ class TweetHeader: UICollectionReusableView {
         likesLabel.attributedText = viewModel.likesAttributedString
         likeButton.setImage(viewModel.likeButtonImage, for: .normal)
         likeButton.tintColor = viewModel.likeButtonTintColor
+        
+        replyLabel.isHidden = viewModel.shouldHideReplyLabel
+        replyLabel.text = viewModel.replyText
     }
 }

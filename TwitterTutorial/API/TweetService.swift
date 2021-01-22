@@ -13,7 +13,7 @@ struct TweetService {
     func uploadTweet(caption: String, type: UploadTweetConfiguration, completion: @escaping DatabaseCompletionType) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        let values: [AnyHashable: Any] = ["uid": uid,
+        var values: [AnyHashable: Any] = ["uid": uid,
                                           "timestamp": Int(NSDate().timeIntervalSince1970),
                                           "likes": 0,
                                           "retweets": 0,
@@ -27,6 +27,7 @@ struct TweetService {
             }
             break
         case .reply(let tweet):
+            values["replyingTo"] = tweet.user.username
             TWEET_REPLIES_REF.child(tweet.tweetId).childByAutoId().updateChildValues(values) { (error, ref) in
                 guard let replyKey = ref.key else { return }
                 USER_REPLIES_REF.child(uid).updateChildValues([tweet.tweetId: replyKey], withCompletionBlock: completion)
@@ -101,10 +102,11 @@ struct TweetService {
             TWEET_REPLIES_REF.child(tweetKey).child(replyKey).observeSingleEvent(of: .value) { snapshot in
                 guard let dictionary = snapshot.value as? [String : Any] else { return }
                 guard let uid = dictionary["uid"] as? String else { return }
+                let replyId = snapshot.key
 
                 UserService.shared.fetchUserData(uid: uid) { (user) in
-                    let tweet = Tweet(user: user, tweetId: tweetKey, dictionary: dictionary)
-                    replies.append(tweet)
+                    let reply = Tweet(user: user, tweetId: replyId, dictionary: dictionary)
+                    replies.append(reply)
                     completion(replies)
                 }
             }

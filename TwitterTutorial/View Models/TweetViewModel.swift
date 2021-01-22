@@ -9,6 +9,8 @@ import UIKit
 
 struct TweetViewModel {
     
+    // MARK: - Properties
+    
     let tweet: Tweet
     let user: User
     
@@ -43,8 +45,6 @@ struct TweetViewModel {
         return attributedText(withvalue: tweet.likes, andText: "Likes")
     }
 
-    
-    
     var userInfoText: NSAttributedString {
         let title = NSMutableAttributedString(string: user.fullname, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14.0)])
         title.append(NSAttributedString(string: " @\(user.username)", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16.0), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
@@ -62,10 +62,23 @@ struct TweetViewModel {
         return UIImage(named: imageName)!
     }
     
+    var shouldHideReplyLabel: Bool {
+        return !tweet.isReply
+    }
+    
+    var replyText: String? {
+        guard let username = tweet.replyingTo else { return nil}
+        return "→ replying to @\(username)"
+    }
+    
+    // MARK: - Lifecycle
+    
     init(tweet: Tweet) {
         self.tweet = tweet
         self.user = tweet.user
     }
+    
+    // MARK: - Helper Functions
     
     private func attributedText(withvalue value: Int, andText text: String) -> NSAttributedString {
         
