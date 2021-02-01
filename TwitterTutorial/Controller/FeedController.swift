@@ -69,7 +69,6 @@ class FeedController: UICollectionViewController {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         collectionView.refreshControl = refreshControl
-        
     }
     
     private func configureLeftBarButton() {
@@ -83,7 +82,6 @@ class FeedController: UICollectionViewController {
         profileImageView.sd_setImage(with: user.profileImageURL, completed: nil)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
-
     }
     
     // MARK: - API
@@ -99,7 +97,7 @@ class FeedController: UICollectionViewController {
     }
     
     func checkIfUserLikedTweets(_ tweets: [Tweet]) {
-        tweets.forEach { tweet in
+        self.tweets.forEach { tweet in
             TweetService.shared.checkIfUserLikedTweet(tweet) { (didLike) in
                 guard didLike == true else { return }
                 
@@ -107,7 +105,6 @@ class FeedController: UICollectionViewController {
                     self.tweets[index].didLike = true
                 }
             }
-
         }
     }
 }
