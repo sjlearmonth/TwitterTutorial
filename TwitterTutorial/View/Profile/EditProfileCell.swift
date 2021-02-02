@@ -7,9 +7,19 @@
 
 import UIKit
 
+protocol EditProfileCellDelegate: class {
+    func updateUserInfo(_ cell: EditProfileCell)
+}
+
 class EditProfileCell: UITableViewCell {
     
     // MARK: - Properties
+    
+    var viewModel: EditProfileViewModel? {
+        didSet {
+            configure()
+        }
+    }
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -24,6 +34,7 @@ class EditProfileCell: UITableViewCell {
         tf.textAlignment = .left
         tf.textColor = .twitterBlue
         tf.addTarget(self, action: #selector(handleUpdateUserInfo), for: .editingDidEnd)
+        tf.text = "Test User Attribute"
         return tf
     }()
     
@@ -39,7 +50,19 @@ class EditProfileCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .systemPurple
+        
+        selectionStyle = .none
+        
+        contentView.addSubview(titleLabel)
+        titleLabel.setWidth(to: 100.0)
+        titleLabel.anchor(top: topAnchor, left: leftAnchor, paddingTop: 12.0, paddingLeft: 16.0)
+        
+        contentView.addSubview(infoTextField)
+        infoTextField.anchor(top: topAnchor, left: titleLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 4.0, paddingLeft: 16.0, paddingBottom: 4.0, paddingRight: 8.0)
+        
+        contentView.addSubview(bioTextView)
+        bioTextView.anchor(top: topAnchor, left: titleLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 4.0, paddingLeft: 16.0, paddingRight: 8.0)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -50,5 +73,19 @@ class EditProfileCell: UITableViewCell {
     
     @objc func handleUpdateUserInfo() {
         
+    }
+    
+    // MARK: - Helpers
+    
+    private func configure() {
+        guard let viewModel = viewModel else { return }
+        
+        infoTextField.isHidden = viewModel.shouldHideTextField
+        bioTextView.isHidden = viewModel.shouldHideTextView
+        
+        titleLabel.text = viewModel.titleText
+        
+        infoTextField.text = viewModel.optionValue
+        bioTextView.text = viewModel.optionValue
     }
 }
