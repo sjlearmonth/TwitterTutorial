@@ -9,9 +9,9 @@ import Foundation
 import Firebase
 
 struct User {
-    let fullname: String
+    var fullname: String
     let email: String
-    let username: String
+    var username: String
     var profileImageURL: URL?
     let uid: String
     var isCurrentUser: Bool { return Auth.auth().currentUser?.uid == uid }

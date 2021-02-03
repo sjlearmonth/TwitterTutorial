@@ -21,6 +21,8 @@ class EditProfileCell: UITableViewCell {
         }
     }
     
+    weak var delegate: EditProfileCellDelegate?
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14.0)
@@ -43,6 +45,8 @@ class EditProfileCell: UITableViewCell {
         tv.font = UIFont.systemFont(ofSize: 14.0)
         tv.textColor = .twitterBlue
         tv.placeholderLabel.text = "Bio"
+        let padding = tv.textContainer.lineFragmentPadding
+        tv.textContainerInset = UIEdgeInsets(top: 0, left: -padding, bottom: 0, right: -padding)
         return tv
     }()
     
@@ -63,6 +67,7 @@ class EditProfileCell: UITableViewCell {
         contentView.addSubview(bioTextView)
         bioTextView.anchor(top: topAnchor, left: titleLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 4.0, paddingLeft: 16.0, paddingRight: 8.0)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateUserInfo), name: UITextView.textDidEndEditingNotification, object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -72,7 +77,7 @@ class EditProfileCell: UITableViewCell {
     // MARK: - Selectors
     
     @objc func handleUpdateUserInfo() {
-        
+        delegate?.updateUserInfo(self)
     }
     
     // MARK: - Helpers
@@ -87,5 +92,7 @@ class EditProfileCell: UITableViewCell {
         
         infoTextField.text = viewModel.optionValue
         bioTextView.text = viewModel.optionValue
+        
+        bioTextView.placeholderLabel.isHidden = viewModel.shouldHideBioPlaceholderLabel
     }
 }

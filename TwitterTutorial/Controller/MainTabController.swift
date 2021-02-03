@@ -37,11 +37,8 @@ class MainTabController: UITabBarController {
         super.viewDidLoad()
         
         view.backgroundColor = .twitterBlue
-        
 //        logUserOut()
-        
         authenticateUserAndConfigureUI()
-
     }
     
     // MARK: - Helper Functions
@@ -49,7 +46,6 @@ class MainTabController: UITabBarController {
     private func configureUI() {
         view.addSubview(actionButton)
         actionButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: 64, paddingRight: 16, width: 56, height: 56)
-        
     }
     
     private func configureViewControllers() {
