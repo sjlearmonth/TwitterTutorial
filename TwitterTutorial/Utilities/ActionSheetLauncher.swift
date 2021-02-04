@@ -84,7 +84,6 @@ class ActionSheetLauncher: NSObject {
     }
     
     func show() {
-        print("DEBUG: Show action sheet for user \(user.username)")
         
         guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow} ) else { return }
         self.window = window

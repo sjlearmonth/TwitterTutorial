@@ -47,7 +47,8 @@ struct EditProfileViewModel {
     }
     
     var shouldHideBioPlaceholderLabel: Bool {
-        return user.bio != nil
+        // Only hide placeholder label when bio is nil or bio is an enpty string
+        return !(user.bio == nil || user.bio == "")
     }
     
     init(user: User, option: EditProfileOptions) {

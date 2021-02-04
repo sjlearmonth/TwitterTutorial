@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ActiveLabel
 
 class UploadTweetController: UIViewController {
     
@@ -38,11 +39,11 @@ class UploadTweetController: UIViewController {
         return piv
     }()
     
-    private lazy var replyLabel: UILabel = {
-        let label = UILabel()
+    private lazy var replyLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.font = UIFont.systemFont(ofSize: 14.0)
         label.textColor = .lightGray
-        label.text = "replying to @spiderman"
+        label.mentionColor = .twitterBlue
         label.setWidth(to: view.frame.width)
         return label
     }()
@@ -65,6 +66,7 @@ class UploadTweetController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        configureMentionHandler()
         
     }
     
@@ -100,7 +102,6 @@ class UploadTweetController: UIViewController {
         guard let replyText = viewModel.replyText else { return }
         replyLabel.text = replyText
         
-        
     }
     
     private func configureNavigationBar() {
@@ -112,20 +113,23 @@ class UploadTweetController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: tweetActionButton)
     }
     
+    private func configureMentionHandler() {
+        replyLabel.handleMentionTap { mention in
+            
+        }
+    }
+    
     // MARK: - API
     
     // MARK: - Selectors
     
     @objc func handleCancelClicked() {
-        print("DEBUG: cancel clicked")
         dismiss(animated: true, completion: nil)
     }
     
     @objc func handleTweetActionButtonClicked() {
-        print("DEBUG: tweet action button clicked")
         guard let caption = captionTextView.text else { return }
         TweetService.shared.uploadTweet(caption: caption, type: config) { (error, reference) in
-            print("DEBUG: Tweet has been uploaded to the realtime database.")
             if let error = error {
                 print("DEBUG: Failed to upload tweet with error = \(error.localizedDescription)")
                 return
@@ -138,5 +142,4 @@ class UploadTweetController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
-    
 }

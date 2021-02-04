@@ -157,12 +157,10 @@ class ProfileHeader: UICollectionReusableView {
     // MARK: - Selectors
     
     @objc func handleBackButtonClicked() {
-        print("DEBUG: back button clicked")
         delegate?.handleDismissal()
     }
     
     @objc func handleEditProfileButtonClicked() {
-        print("DEBUG: edit profile follow clicked")
         delegate?.handleEditProfileFollow(self)
     }
     

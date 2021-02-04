@@ -14,7 +14,6 @@ class MainTabController: UITabBarController {
     
     var user: User? {
         didSet {
-            print("DEBUG: Did set user in main tab bar controller.")
             guard let navigationController = viewControllers?.first as? UINavigationController else { return }
             guard let feedController = navigationController.viewControllers.first as? FeedController else { return }
             feedController.user = user
@@ -76,7 +75,6 @@ class MainTabController: UITabBarController {
     // MARK: - Selectors
     
     @objc func handleActionButtonClicked() {
-        print("DEBUG: action button clicked")
         guard let user = user else { return }
         let viewController = UploadTweetController(user: user, config: .tweet)
         let navigationController = UINavigationController(rootViewController: viewController)
@@ -90,7 +88,6 @@ class MainTabController: UITabBarController {
     func authenticateUserAndConfigureUI() {
         
         if Auth.auth().currentUser == nil {
-            print("DEBUG: User is NOT logged in.")
             // The UINavigationController instantiation code must be done on the main thread or it won't work
             DispatchQueue.main.async {
                 let navigationController = UINavigationController(rootViewController: LoginController())
@@ -99,7 +96,6 @@ class MainTabController: UITabBarController {
                 self.present(navigationController, animated: true, completion: nil)
             }
         } else {
-            print("DEBUG: User is logged in uid = \(Auth.auth().currentUser?.uid ?? "uid unknown")")
             configureUI()
             configureViewControllers()
             fetchUserData()

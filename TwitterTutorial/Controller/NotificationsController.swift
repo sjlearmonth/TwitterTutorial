@@ -124,12 +124,10 @@ extension NotificationsController: NotificationCellDelegate {
         
         if user.isFollowed {
             UserService.shared.unfollowUser(uid: user.uid) { (error, ref) in
-                print("DEBUG: Did unfollow user \(user.username)")
                 cell.notification?.user.isFollowed = false
             }
         } else {
             UserService.shared.followUser(uid: user.uid) { (error, ref) in
-                print("DEBUG: Did unfollow user \(user.username)")
                 cell.notification?.user.isFollowed = true
             }
         }

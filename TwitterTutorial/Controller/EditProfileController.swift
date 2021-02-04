@@ -82,7 +82,6 @@ class EditProfileController: UITableViewController {
                 self.updateProfileImage()
             }
         }
-        
     }
     
     func updateProfileImage() {
@@ -188,7 +187,6 @@ extension EditProfileController: EditProfileCellDelegate {
             
         case .bio:
             user.bio = cell.bioTextView.text
-            
         }
     }
 }

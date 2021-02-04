@@ -13,7 +13,7 @@ class InputTextView: UITextView {
     
     let placeholderLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16.0)
+        label.font = UIFont.systemFont(ofSize: 14.0)
         label.textColor = .darkGray
         label.text = "What's happening?"
         return label
@@ -30,7 +30,7 @@ class InputTextView: UITextView {
         setHeight(to: 100.0)
         
         addSubview(placeholderLabel)
-        placeholderLabel.anchor(top: topAnchor, left: leftAnchor, paddingTop: 8.0, paddingLeft: 4.0)
+        placeholderLabel.anchor(top: topAnchor, left: leftAnchor, paddingTop: 8.0)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleTextInputChange), name: UITextView.textDidChangeNotification, object: nil)
     }
@@ -42,7 +42,6 @@ class InputTextView: UITextView {
     // MARK: - Selectors
     
     @objc func handleTextInputChange() {
-        print("DEBUG: text input change did occur.")
         placeholderLabel.isVisible = text.isEmpty
     }
 }

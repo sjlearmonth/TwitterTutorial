@@ -18,6 +18,7 @@ let USER_LIKES_REF = REALTIME_DATABASE_REF.child("user-likes")
 let TWEET_LIKES_REF = REALTIME_DATABASE_REF.child("tweet-likes")
 let NOTIFICATIONS_REF = REALTIME_DATABASE_REF.child("notifications")
 let USER_REPLIES_REF = REALTIME_DATABASE_REF.child("user-replies")
+let USER_USERNAMES_REF = REALTIME_DATABASE_REF.child("user-usernames")
 
 let STORAGE_REF = Storage.storage().reference()
 let PROFILE_IMAGES_REF = STORAGE_REF.child("profile_images")

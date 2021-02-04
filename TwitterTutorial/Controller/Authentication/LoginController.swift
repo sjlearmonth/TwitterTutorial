@@ -96,7 +96,6 @@ class LoginController: UIViewController {
     // MARK: - Selectors
 
     @objc func handleLogInButtonClicked() {
-        print("DEBUG: Log In button clicked")
         
         guard let email = emailTextField.text, !email.isEmpty,
               let password = passwordTextField.text, !password.isEmpty else { return }
@@ -106,8 +105,6 @@ class LoginController: UIViewController {
                 print("DEBUG: Error logging in \(error.localizedDescription)")
                 return
             }
-            
-            print("DEBUG: Successful logging in")
             
             guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow}),
                   let mainTabBarController = window.rootViewController as? MainTabController else { return }
@@ -119,7 +116,6 @@ class LoginController: UIViewController {
     }
     
     @objc func handleDontHaveAnAccountButtonClicked() {
-        print("DEBUG: Don't have an account button clicked")
         let controller = RegistrationController()
         controller.modalPresentationStyle = .fullScreen
         controller.modalTransitionStyle = .crossDissolve

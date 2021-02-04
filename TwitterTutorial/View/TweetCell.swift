@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import ActiveLabel
 
 protocol TweetCellDelegate: class {
     func handleProfileImageTapped(_ cell: TweetCell)
     func handleReplyTapped(_ cell: TweetCell)
     func handleLikeTapped(_ cell: TweetCell)
+    func handleFetchUser(withUsername username: String)
 }
 
 class TweetCell: UICollectionViewCell {
@@ -38,17 +40,20 @@ class TweetCell: UICollectionViewCell {
         return piv
     }()
     
-    private let replyLabel: UILabel = {
-        let label = UILabel()
+    private let replyLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 12)
+        label.mentionColor = .twitterBlue
         return label
     }()
     
-    private let captionLabel: UILabel = {
-        let label = UILabel()
+    private let captionLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.font = UIFont.systemFont(ofSize: 14.0)
         label.numberOfLines = 0
+        label.mentionColor = .twitterBlue
+        label.hashtagColor = .twitterBlue
         return label
     }()
     
@@ -141,6 +146,8 @@ class TweetCell: UICollectionViewCell {
                              bottom: bottomAnchor,
                              right: rightAnchor,
                              height: 1.0)
+        
+        configureMentionHandler()
     }
     
     required init?(coder: NSCoder) {
@@ -150,7 +157,6 @@ class TweetCell: UICollectionViewCell {
     // MARK: - Selectors
     
     @objc func handleCommentButtonClicked() {
-        print("DEBUG: comment button clicked")
         delegate?.handleReplyTapped(self)
     }
 
@@ -168,7 +174,6 @@ class TweetCell: UICollectionViewCell {
     }
     
     @objc func handleProfileImageTapped() {
-        print("DEBUG: profile image clicked")
         delegate?.handleProfileImageTapped(self)
     }
 
@@ -186,6 +191,11 @@ class TweetCell: UICollectionViewCell {
         
         replyLabel.isHidden = viewModel.shouldHideReplyLabel
         replyLabel.text = viewModel.replyText
-        
+    }
+    
+    private func configureMentionHandler() {
+        captionLabel.handleMentionTap { username in
+            self.delegate?.handleFetchUser(withUsername: username)
+        }
     }
 }

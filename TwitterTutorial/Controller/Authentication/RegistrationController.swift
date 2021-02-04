@@ -121,17 +121,14 @@ class RegistrationController: UIViewController {
     }
     
     @objc func handlePhotoPlusButtonClicked() {
-        print("DEBUG: photo plus button clicked")
         imagePickerController.modalPresentationStyle = .fullScreen
         imagePickerController.modalTransitionStyle = .crossDissolve
         present(imagePickerController, animated: true)
     }
 
     @objc func handleRegistrationButtonClicked() {
-        print("DEBUG: registration button clicked")
         
         guard let profileImage = profileImage else {
-            print("DEBUG: Please select a profile image")
             return
         }
         
@@ -147,18 +144,13 @@ class RegistrationController: UIViewController {
                                           profileImage: profileImage)
         
         AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
-            print("DEBUG: sign up successful")
-            print("DEBUG: handle update user interface here")
-            
             guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow}),
                   let mainTabBarController = window.rootViewController as? MainTabController else { return }
             
             mainTabBarController.authenticateUserAndConfigureUI()
             
             self.dismiss(animated: true, completion: nil)
-
         }
-    
     }
 }
 

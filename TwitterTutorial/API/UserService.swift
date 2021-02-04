@@ -17,11 +17,9 @@ struct UserService {
         
         USERS_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
             guard let snapshotDictionary = snapshot.value as? [String: AnyObject] else { return }
-            
             let user = User(uid: uid, dictionary: snapshotDictionary)
             completion(user)
         }
-        
     }
     
     func fetchUsers(completion: @escaping ([User]) -> Void) {
@@ -93,8 +91,14 @@ struct UserService {
     func saveUserData(user: User, completion: @escaping (DatabaseCompletionType)) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        let values = ["fullname": user.fullname, "username": user.username, "bio": user.bio ?? ""]
+        let values = ["fullname": user.fullname, "username": user.username, "bio": user.bio]
         
         USERS_REF.child(uid).updateChildValues(values, withCompletionBlock: completion)
+    }
+    
+    func fetchUser(withUsername username: String, completion: @escaping (User) -> Void ) {
+        USER_USERNAMES_REF.child(username).observeSingleEvent(of: .value) { snapshot in
+            print(snapshot)
+        }
     }
 }
