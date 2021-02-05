@@ -81,7 +81,7 @@ struct TweetService {
             guard let dictionary = snapshot.value as? [String : Any] else { return }
             guard let uid = dictionary["uid"] as? String else { return }
 
-            UserService.shared.fetchUserData(uid: uid) { (user) in
+            UserService.shared.fetchUser(uid: uid) { (user) in
                 let tweet = Tweet(user: user, tweetId: tweetId, dictionary: dictionary)
                 completion(tweet)
             }
@@ -114,7 +114,7 @@ struct TweetService {
                 guard let uid = dictionary["uid"] as? String else { return }
                 let replyId = snapshot.key
 
-                UserService.shared.fetchUserData(uid: uid) { (user) in
+                UserService.shared.fetchUser(uid: uid) { (user) in
                     let reply = Tweet(user: user, tweetId: replyId, dictionary: dictionary)
                     replies.append(reply)
                     completion(replies)
@@ -132,7 +132,7 @@ struct TweetService {
             guard let uid = dictionary["uid"] as? String else { return }
             let tweetId = snapshot.key
 
-            UserService.shared.fetchUserData(uid: uid) { (user) in
+            UserService.shared.fetchUser(uid: uid) { (user) in
                 let tweet = Tweet(user: user, tweetId: tweetId, dictionary: dictionary)
                 tweets.append(tweet)
                 completion(tweets)

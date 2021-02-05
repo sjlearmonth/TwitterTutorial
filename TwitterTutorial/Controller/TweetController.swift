@@ -112,12 +112,17 @@ extension TweetController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 120.0)
     }
-
 }
 
 // MARK: - TweetHeaderDelegate
 
 extension TweetController: TweetHeaderDelegate {
+    func handleFetchUser(withUsername username: String) {
+        UserService.shared.fetchUser(withUsername: username) { user in
+            let controller = ProfileController(user: user)
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+    }
 
     func showActionSheet() {
         
@@ -152,6 +157,4 @@ extension TweetController: ActionSheetLauncherDelegate {
             print("DEBUG: Delete tweet")
         }
     }
-    
-    
 }

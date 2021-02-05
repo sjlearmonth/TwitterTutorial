@@ -13,7 +13,7 @@ struct UserService {
     
     static let shared = UserService()
     
-    func fetchUserData(uid: String, completion: @escaping (User) -> Void) {
+    func fetchUser(uid: String, completion: @escaping (User) -> Void) {
         
         USERS_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
             guard let snapshotDictionary = snapshot.value as? [String: AnyObject] else { return }
@@ -93,12 +93,13 @@ struct UserService {
         
         let values = ["fullname": user.fullname, "username": user.username, "bio": user.bio]
         
-        USERS_REF.child(uid).updateChildValues(values, withCompletionBlock: completion)
+        USERS_REF.child(uid).updateChildValues(values as [AnyHashable : Any], withCompletionBlock: completion)
     }
     
     func fetchUser(withUsername username: String, completion: @escaping (User) -> Void ) {
         USER_USERNAMES_REF.child(username).observeSingleEvent(of: .value) { snapshot in
-            print(snapshot)
+            guard let uid = snapshot.value as? String else { return }
+            self.fetchUser(uid: uid, completion: completion)
         }
     }
 }

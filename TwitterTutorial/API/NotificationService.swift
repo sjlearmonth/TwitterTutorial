@@ -10,9 +10,9 @@ import Firebase
 struct NotificationService {
     static let shared = NotificationService()
     
-    func uploadNotification(type: NotificationType,
-                            tweet: Tweet? = nil,
-                            user: User? = nil) {
+    func uploadNotification(toUser user: User,
+                            type: NotificationType,
+                            tweetId: String? = nil) {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -20,12 +20,11 @@ struct NotificationService {
                                      "uid": uid,
                                      "type": type.rawValue]
         
-        if let tweet = tweet {
-            values["tweetId"] = tweet.tweetId
-            NOTIFICATIONS_REF.child(tweet.user.uid).childByAutoId().updateChildValues(values)
-        } else if let user = user {
-            NOTIFICATIONS_REF.child(user.uid).childByAutoId().updateChildValues(values)
+        if let tweetId = tweetId {
+            values["tweetId"] = tweetId
         }
+        
+        NOTIFICATIONS_REF.child(user.uid).childByAutoId().updateChildValues(values)
     }
     
     func fetchNotifications(completion: @escaping ([Notification]) -> Void) {
@@ -38,12 +37,11 @@ struct NotificationService {
             guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
             guard let uid = dictionary["uid"] as? String else { return }
             
-            UserService.shared.fetchUserData(uid: uid) { (user) in
+            UserService.shared.fetchUser(uid: uid) { (user) in
                 let notification = Notification(user: user, dictionary: dictionary)
                 notifications.append(notification)
                 completion(notifications)
             }
-            
         }
     }
 }
