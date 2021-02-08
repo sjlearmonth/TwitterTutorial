@@ -58,40 +58,29 @@ class TweetCell: UICollectionViewCell {
     }()
     
     private lazy var commentButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "comment"), for: .normal)
-        button.tintColor = .darkGray
-        button.setDimensions(width: 20.0, height: 20.0)
+        let button = createButton(withImageName: "comment")
         button.addTarget(self, action: #selector(handleCommentButtonClicked), for: .touchUpInside)
         return button
     }()
-    
+
     private lazy var retweetButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "retweet"), for: .normal)
-        button.tintColor = .darkGray
-        button.setDimensions(width: 20.0, height: 20.0)
+        let button = createButton(withImageName: "retweet")
         button.addTarget(self, action: #selector(handleRetweetButtonClicked), for: .touchUpInside)
         return button
     }()
 
     private lazy var likeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "like"), for: .normal)
-        button.tintColor = .darkGray
-        button.setDimensions(width: 20.0, height: 20.0)
+        let button = createButton(withImageName: "like")
         button.addTarget(self, action: #selector(handleLikeButtonClicked), for: .touchUpInside)
         return button
     }()
 
     private lazy var shareButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "share"), for: .normal)
-        button.tintColor = .darkGray
-        button.setDimensions(width: 20.0, height: 20.0)
+        let button = createButton(withImageName: "share")
         button.addTarget(self, action: #selector(handleShareButtonClicked), for: .touchUpInside)
         return button
     }()
+
 
     private let infoLabel = UILabel()
     
@@ -170,7 +159,6 @@ class TweetCell: UICollectionViewCell {
 
     @objc func handleShareButtonClicked() {
         print("DEBUG: share button clicked")
-        
     }
     
     @objc func handleProfileImageTapped() {
@@ -191,6 +179,14 @@ class TweetCell: UICollectionViewCell {
         
         replyLabel.isHidden = viewModel.shouldHideReplyLabel
         replyLabel.text = viewModel.replyText
+    }
+    
+    private func createButton(withImageName imageName: String) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: imageName), for: .normal)
+        button.tintColor = .darkGray
+        button.setDimensions(width: 20.0, height: 20.0)
+        return button
     }
     
     private func configureMentionHandler() {

@@ -67,7 +67,6 @@ class UploadTweetController: UIViewController {
         
         configureUI()
         configureMentionHandler()
-        
     }
     
     // MARK: - Helper Functions
@@ -101,7 +100,6 @@ class UploadTweetController: UIViewController {
         replyLabel.isVisible = viewModel.shouldShowReplyLabel
         guard let replyText = viewModel.replyText else { return }
         replyLabel.text = replyText
-        
     }
     
     private func configureNavigationBar() {
@@ -114,8 +112,7 @@ class UploadTweetController: UIViewController {
     }
     
     private func configureMentionHandler() {
-        replyLabel.handleMentionTap { mention in
-            
+        replyLabel.handleMentionTap { username in
         }
     }
     
@@ -153,6 +150,9 @@ class UploadTweetController: UIViewController {
             
             if case .reply(let tweet) = self.config {
                 NotificationService.shared.uploadNotification(toUser: tweet.user, type: .reply, tweetId: tweet.tweetId)
+                self.uploadMentionNotification(forCaption: caption, tweetId: tweet.tweetId)
+            } else {
+                self.uploadMentionNotification(forCaption: caption, tweetId: nil)
             }
             
             self.dismiss(animated: true, completion: nil)
