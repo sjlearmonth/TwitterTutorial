@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ProfileController: UICollectionViewController {
     
@@ -153,9 +154,7 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
         }
         
         return CGSize(width: view.frame.width, height: height)
-        
     }
-    
 }
 
 // MARK: - UICollectionViewDelegate
@@ -219,11 +218,21 @@ extension ProfileController: ProfileHeaderDelegate {
 // MARK: - EditProfileControllerDelegate
 
 extension ProfileController: EditProfileControllerDelegate {
+    func handleLogOut() {
+        do {
+            try Auth.auth().signOut()
+            let navigationController = UINavigationController(rootViewController: LoginController())
+            navigationController.modalPresentationStyle = .fullScreen
+            navigationController.modalTransitionStyle = .crossDissolve
+            self.present(navigationController, animated: true, completion: nil)
+        } catch let error {
+            print("DEBUG: Failed to sign out with error \(error.localizedDescription)")
+        }
+    }
+    
     func controller(_ controller: EditProfileController, wantsToUpdate user: User) {
         self.user = user
         self.collectionView.reloadData()
         controller.dismiss(animated: true, completion: nil)
     }
-    
-    
 }

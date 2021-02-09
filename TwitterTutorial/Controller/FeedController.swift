@@ -50,6 +50,14 @@ class FeedController: UICollectionViewController {
         fetchTweets()
     }
     
+    @objc func handleProfileImageTap() {
+        guard let user = user else { return }
+        let controller = ProfileController(user: user)
+        controller.modalTransitionStyle = .crossDissolve
+        controller.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
     // MARK: - Helper Functions
     
     private func configureUI() {
@@ -78,6 +86,9 @@ class FeedController: UICollectionViewController {
         profileImageView.setDimensions(width: 32.0, height: 32.0)
         profileImageView.layer.cornerRadius = 32.0 / 2.0
         profileImageView.layer.masksToBounds = true
+        profileImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleProfileImageTap))
+        profileImageView.addGestureRecognizer(tap)
         profileImageView.sd_setImage(with: user.profileImageURL, completed: nil)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
@@ -175,7 +186,6 @@ extension FeedController: TweetCellDelegate {
         present(navigationController, animated: true, completion: nil)
     }
     
-    
     func handleProfileImageTapped(_ cell: TweetCell) {
         guard let user = cell.tweet?.user else { return }
         let controller = ProfileController(user: user)
@@ -183,5 +193,4 @@ extension FeedController: TweetCellDelegate {
         controller.modalTransitionStyle = .crossDissolve
         navigationController?.pushViewController(controller, animated: true)
     }
-    
 }

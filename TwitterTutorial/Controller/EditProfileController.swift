@@ -11,6 +11,7 @@ private let reuseIdentifier = "EditProfileReuseIdentifier"
 
 protocol EditProfileControllerDelegate: class {
     func controller(_ controller: EditProfileController, wantsToUpdate user: User)
+    func handleLogOut()
 }
 
 class EditProfileController: UITableViewController {
@@ -112,11 +113,12 @@ class EditProfileController: UITableViewController {
     private func configureTableView() {
         tableView.tableHeaderView = headerView
         headerView.frame = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: 180.0)
-        
-        footerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
-        tableView.tableFooterView = footerView
         headerView.delegate = self
+        
+        tableView.tableFooterView = footerView
+        footerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
         footerView.delegate = self
+        
         tableView.register(EditProfileCell.self, forCellReuseIdentifier: reuseIdentifier)
     }
     
@@ -197,8 +199,15 @@ extension EditProfileController: EditProfileCellDelegate {
 
 extension EditProfileController: EditProfileFooterDelegate {
     func handleLogout() {
-        
+        let alertController = UIAlertController(title: nil, message: "Are you sure you want to Log Out?", preferredStyle: .actionSheet)
+        let logOutAlertAction = UIAlertAction(title: "Log Out", style: .destructive) { _ in
+            self.dismiss(animated: true) {
+                self.delegate?.handleLogOut()
+            }
+        }
+        let cancelAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(logOutAlertAction)
+        alertController.addAction(cancelAlertAction)
+        present(alertController, animated: true, completion: nil)
     }
-    
-    
 }

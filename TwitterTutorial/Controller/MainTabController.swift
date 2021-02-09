@@ -8,9 +8,16 @@
 import UIKit
 import Firebase
 
+enum ActionButtonConfiguration {
+    case tweet
+    case message
+}
+
 class MainTabController: UITabBarController {
 
     // MARK: - Properties
+    
+    private var buttonConfig: ActionButtonConfiguration = .tweet
     
     var user: User? {
         didSet {
@@ -36,13 +43,14 @@ class MainTabController: UITabBarController {
         super.viewDidLoad()
         
         view.backgroundColor = .twitterBlue
-//        logUserOut()
         authenticateUserAndConfigureUI()
+    
     }
     
     // MARK: - Helper Functions
     
     private func configureUI() {
+        self.delegate = self
         view.addSubview(actionButton)
         actionButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: 64, paddingRight: 16, width: 56, height: 56)
     }
@@ -52,7 +60,7 @@ class MainTabController: UITabBarController {
         let feed = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
         let feedNC = makeNavigationController(image: UIImage(named: "home_unselected"), rootViewController: feed)
         
-        let explore = ExploreController()
+        let explore = SearchController(config: .UserSearch)
         let exploreNC = makeNavigationController(image: UIImage(named: "search_unselected"), rootViewController: explore)
 
         let notifications = NotificationsController()
@@ -75,12 +83,21 @@ class MainTabController: UITabBarController {
     // MARK: - Selectors
     
     @objc func handleActionButtonClicked() {
-        guard let user = user else { return }
-        let viewController = UploadTweetController(user: user, config: .tweet)
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        navigationController.modalTransitionStyle = .crossDissolve
-        present(navigationController, animated: true, completion: nil)
+        
+        let controller: UIViewController
+        
+        switch buttonConfig {
+        case .message:
+            controller = SearchController(config: .messages)
+        case .tweet:
+            guard let user = user else { return }
+            controller = UploadTweetController(user: user, config: .tweet)
+        }
+
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
+        nav.modalTransitionStyle = .crossDissolve
+        present(nav, animated: true, completion: nil)
     }
     
     // MARK: - API
@@ -102,19 +119,19 @@ class MainTabController: UITabBarController {
         }
     }
     
-    private func logUserOut() {
-        
-        do {
-            try Auth.auth().signOut()
-        } catch let error {
-            print("DEBUG: Failed to sign out with error \(error.localizedDescription)")
-        }
-    }
-    
     private func fetchUserData() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         UserService.shared.fetchUser(uid: uid) { user in
             self.user = user
         }
+    }
+}
+
+extension MainTabController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let index = viewControllers?.firstIndex(of: viewController)
+        let actionButtonImage:UIImage = index == 3 ? #imageLiteral(resourceName: "mail") : #imageLiteral(resourceName: "new_tweet")
+        actionButton.setImage(actionButtonImage, for: .normal)
+        buttonConfig = index == 3 ? .message : .tweet
     }
 }

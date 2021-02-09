@@ -22,7 +22,7 @@
 		C42292E92566DC3100EAA120 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42292E72566DC3100EAA120 /* LaunchScreen.storyboard */; };
 		C42292FC2566DE6000EAA120 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42292FB2566DE6000EAA120 /* MainTabController.swift */; };
 		C42293022566E16B00EAA120 /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42293012566E16B00EAA120 /* FeedController.swift */; };
-		C42293052566E1EC00EAA120 /* ExploreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42293042566E1EC00EAA120 /* ExploreController.swift */; };
+		C42293052566E1EC00EAA120 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42293042566E1EC00EAA120 /* SearchController.swift */; };
 		C42293082566E20A00EAA120 /* NotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42293072566E20A00EAA120 /* NotificationsController.swift */; };
 		C422930B2566E22100EAA120 /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422930A2566E22100EAA120 /* ConversationsController.swift */; };
 		C422930E256823D200EAA120 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422930D256823D200EAA120 /* Extensions.swift */; };
@@ -74,7 +74,7 @@
 		C42292E82566DC3100EAA120 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C42292FB2566DE6000EAA120 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		C42293012566E16B00EAA120 /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
-		C42293042566E1EC00EAA120 /* ExploreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreController.swift; sourceTree = "<group>"; };
+		C42293042566E1EC00EAA120 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		C42293072566E20A00EAA120 /* NotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsController.swift; sourceTree = "<group>"; };
 		C422930A2566E22100EAA120 /* ConversationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsController.swift; sourceTree = "<group>"; };
 		C422930D256823D200EAA120 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 				C422931425682E6300EAA120 /* Authentication */,
 				C42292FB2566DE6000EAA120 /* MainTabController.swift */,
 				C42293012566E16B00EAA120 /* FeedController.swift */,
-				C42293042566E1EC00EAA120 /* ExploreController.swift */,
+				C42293042566E1EC00EAA120 /* SearchController.swift */,
 				C42293072566E20A00EAA120 /* NotificationsController.swift */,
 				C422930A2566E22100EAA120 /* ConversationsController.swift */,
 				C4BE9BC42577F50000C1C00B /* UploadTweetController.swift */,
@@ -413,7 +413,7 @@
 				C4BE9BC52577F50000C1C00B /* UploadTweetController.swift in Sources */,
 				C4020162257024B300CCBB00 /* User.swift in Sources */,
 				C4ABB4B025C864EF00436C24 /* EditProfileHeader.swift in Sources */,
-				C42293052566E1EC00EAA120 /* ExploreController.swift in Sources */,
+				C42293052566E1EC00EAA120 /* SearchController.swift in Sources */,
 				C42292DF2566DC3000EAA120 /* SceneDelegate.swift in Sources */,
 				C481BCA525B5F87C00BD7D8C /* NotificationService.swift in Sources */,
 				C42292FC2566DE6000EAA120 /* MainTabController.swift in Sources */,
